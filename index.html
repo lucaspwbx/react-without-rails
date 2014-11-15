@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.12.0/react.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.12.0/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="example"</div>
+    <script type="text/jsx">
+      React.render(
+        <div>
+          <h1>Hello, world!</h1>
+          <h2>Teste</h2>
+        </div>,
+        document.getElementById('example')
+        );
+    </script>
+    <script type="text/jsx">
+      var Divider = React.createClass({
+        render: function () {
+          return (
+            <div className="divider">
+              <h2>Questions</h2><hr/>
+            </div>
+            );
+        }
+      });
+      React.render(
+        <Divider/>, document.getElementById('example')
+        )
+
+      var Divider2 = React.createClass({
+        render: function () {
+          return (
+            <div className="divider">
+              <h2>{this.props.children}</h2><hr/>
+            </div>
+            );
+        }
+      });
+      React.render(
+        <Divider2>QuestionsDois</Divider2>,
+        document.getElementById('example')
+        )
+
+      var Button = React.createClass({
+        handleClick: function (event) {
+          alert("clicou");
+        },
+        render: function () {
+          return (
+            <div>
+              <input type="button" onClick={this.handleClick} value={this.props.children}/>
+            </div>
+            );
+        }
+      });
+      React.render(
+        <Button>Clique</Button>,
+        document.getElementById('example')
+        )
+
+     var Date1 = React.createClass({
+       getDefaultProps: function () {
+         return {
+           date: new Date()
+         };
+       },
+       render: function () {
+         var day = this.props.date.getDay();
+         return <div>Day: {day}</div>;
+       }
+     });
+
+     React.render(
+       <Date1></Date1>, document.getElementById('example')
+       )
+
+      var Date2 = React.createClass({
+        getDefaultProps: function () {
+          return {
+            initialValue: 'some-defaut-value'
+          };
+        },
+        getInitialState: function () {
+          return {
+            value: this.props.initialValue
+          };
+        },
+        render: function () {
+          return <div>{this.state.value}</div>
+        }
+      });
+
+      React.render(
+        <Date2></Date2>, document.getElementById('example')
+        )
+
+      var Componente = React.createClass({
+        getInitialState: function () {
+          return {
+            value: ''
+          };
+        },
+        handleChange: function (e) {
+          this.setState({value: e.target.value})
+          console.log(e.target.value);
+        },
+        render: function () {
+          return (
+            <div>
+              <input type="text" value={this.state.value.toUpperCase()}/>
+              <input type="text" onChange={this.handleChange}/>
+            </div>
+            );
+        }
+      });
+
+      React.render(
+        <Componente></Componente>, document.getElementById('example')
+        )
+
+      var ListSurveys = React.createClass({
+        render: function () {
+          var surveys = this.props.surveys;
+          return (
+            <div>
+              <p>{surveys[0]}</p>
+              <p>{surveys[1]}</p>
+            </div>
+            );
+        }
+      });
+
+      surveys = ["Pesquisa Um", "Pesquisa Dois"];
+      React.render(
+        <ListSurveys surveys={surveys}/>, document.getElementById('example')
+        )
+
+      var AnswerRadioCheckbox = React.createClass({
+        getInitialState: function () {
+          return {
+            checked: !!this.props.checked
+          };
+        },
+        handleChanged: function (e) {
+          var checked = e.target.checked;
+          this.setState({checked: checked});
+        },
+        render: function () {
+          return (
+            <div>
+              <input type="checkbox"
+              checked={this.state.checked}
+              onChange={this.handleChanged}/>
+              <input type="text"
+              value={this.state.checked}/>
+            </div>
+            );
+        }
+      });
+      React.render(
+        <AnswerRadioCheckbox/>, document.getElementById('example')
+        )
+    </script>
+  </body>
+</html>
