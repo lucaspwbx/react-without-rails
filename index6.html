@@ -26,7 +26,7 @@
           return (
             <div>
               <OrderForm onClick={this.handleClick}/>
-              <OrderList />
+              <OrderList orders={this.state.orders}/>
             </div>
             );
         }
@@ -64,11 +64,16 @@
 
       var OrderList = React.createClass({
         render: function() {
+          var items = this.props.orders.map(function(order) {
+            return (
+            <OrderListItem order={order}/>
+            );
+          });
           return (
             <div>
               <table>
                 <OrderListHeader />
-                <OrderListItem />
+                {items}
               </table>
             </div>
             );
@@ -91,9 +96,9 @@
         render: function() {
           return (
             <tr>
-                <td>123</td>
-                <td>06/12/2014</td>
-                <td>R$ 84,90</td>
+                <td>{order.nr}</td>
+                <td>{order.date}</td>
+                <td>R$ {order.price}</td>
             </tr>
             );
         }
