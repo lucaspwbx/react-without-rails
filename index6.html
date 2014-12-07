@@ -19,8 +19,11 @@
             orders: orders
           };
         },
-        handleClick: function() {
-          console.log(this.state.orders);
+        handleClick: function(orderNr) {
+          this.state.orders.splice(0, 1);
+          this.setState({
+            orders: this.state.orders
+          });
         },
         render: function () {
           return (
@@ -35,7 +38,8 @@
       var OrderForm = React.createClass({
         handleSubmit: function () {
  //         console.log('searching');
-          this.props.onClick();
+          var orderNr = this.refs.orderNr.getDOMNode().value;
+          this.props.onClick(orderNr);
         },
         render: function () {
           return (
@@ -73,7 +77,9 @@
             <div>
               <table>
                 <OrderListHeader />
-                {items}
+                <tbody>
+                  {items}
+                </tbody>
               </table>
             </div>
             );
@@ -83,17 +89,20 @@
       var OrderListHeader = React.createClass({
         render: function() {
           return (
+            <thead>
                 <th>
                   <td>Order Nr</td>
                   <td>Order Date</td>
                   <td>Total value</td>
                 </th>
+            </thead>
             );
         }
       });
 
       var OrderListItem = React.createClass({
         render: function() {
+          var order = this.props.order;
           return (
             <tr>
                 <td>{order.nr}</td>
