@@ -8,12 +8,27 @@
   <body>
     <div id="example"></div>
     <script type="text/jsx">
+      var App = React.createClass({
+        handleSubmit: function(e) {
+          e.preventDefault();
+          var cardList = this.refs.cardList.getDOMNode();
+        },
+        render: function() {
+          return (
+            <form className="cardsForm" onSubmit={this.handleSubmit}>
+              <CardList ref="cardList"/>
+              <input type="submit" value="Postar" />
+            </form>
+            );
+        }
+      });
+
       var CardList = React.createClass({
         render: function() {
           return (
             <div>
-              <Card/>
-              <Card/>
+              <Card ref="card1"/>
+              <Card ref="card2"/>
             </div>
             );
         }
@@ -66,7 +81,7 @@
       });
 
       React.render(
-        <CardList/>, document.getElementById('example')
+        <App/>, document.getElementById('example')
         );
     </script>
   </body>

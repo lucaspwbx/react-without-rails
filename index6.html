@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://fb.me/react-0.12.1.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.1.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  </head>
+  <body>
+    <div id="app"</div>
+    <script type="text/jsx">
+      var orders = [
+        { nr: "123", date: "06/02/2014", price: "80" },
+        { nr: "456", date: "10/03/2015", price: "99" }
+        ];
+      /** @jsx React.DOM */
+      var Orders = React.createClass({
+        getInitialState: function() {
+          return {
+            orders: orders
+          };
+        },
+        handleClick: function() {
+          console.log(this.state.orders);
+        },
+        render: function () {
+          return (
+            <div>
+              <OrderForm onClick={this.handleClick}/>
+              <OrderList />
+            </div>
+            );
+        }
+      });
+
+      var OrderForm = React.createClass({
+        handleSubmit: function () {
+ //         console.log('searching');
+          this.props.onClick();
+        },
+        render: function () {
+          return (
+            <div>
+              <label htmlFor="orderNr">Order nr</label>
+              <input ref="orderNr" name="orderNr" type="text"/>
+              <DateForm />
+              <input type="submit" value="Search" onClick={this.handleSubmit} />
+            </div>
+            );
+        }
+      });
+
+      var DateForm = React.createClass({
+        render: function() {
+          return (
+            <div>
+              <label htmlFor="dateFrom">Since</label>
+              <input ref="dateFrom" name="dateFrom" type="text" />
+              <label htmlFor="dateTo">To</label>
+              <input ref="dateTo" name="dateTo" type="text" />
+            </div>
+            );
+        }
+      });
+
+      var OrderList = React.createClass({
+        render: function() {
+          return (
+            <div>
+              <table>
+                <OrderListHeader />
+                <OrderListItem />
+              </table>
+            </div>
+            );
+        }
+      });
+
+      var OrderListHeader = React.createClass({
+        render: function() {
+          return (
+                <th>
+                  <td>Order Nr</td>
+                  <td>Order Date</td>
+                  <td>Total value</td>
+                </th>
+            );
+        }
+      });
+
+      var OrderListItem = React.createClass({
+        render: function() {
+          return (
+            <tr>
+                <td>123</td>
+                <td>06/12/2014</td>
+                <td>R$ 84,90</td>
+            </tr>
+            );
+        }
+      });
+
+      React.render(
+        <Orders />,
+        document.body);
+    </script>
+  </body>
+</html>
